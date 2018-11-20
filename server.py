@@ -35,14 +35,14 @@ def socket_accept():
 
 def send_commands(conn):
     while True:
-        cmd = input()
+        cmd = str(input())
         if cmd == 'quit':
             conn.close()
             sock.close()
             sys.exit()
         if len(str.encode(cmd)) > 0:
             conn.send(str.encode(cmd))
-            client_response = str(conn.recv(1024), "utf-8")
+            client_response = str(conn.recv(1024))
             print(client_response)
 
 
@@ -50,6 +50,14 @@ def  main():
     socket_create()
     socket_bind()
     socket_accept()
+
+def ls():
+    msg = os.listdir(os.getcwd())
+    msg = "\n".join(msg)
+    print_degug(msg)
+    send_msg("ls", msg)
+
+
 
 
 
